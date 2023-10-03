@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dummy To-do</title>
+</head>
+
+<body>
+  <header>
+    <h2>Dummy Todo</h2>
+  </header>
+  <div class="container">
+    <div class="form">
+      <form (submit)="addTask($event)">
+        <input type="text" name="task" [(ngModel)]="taskName" class="form-input">
+        <button type="submit" class="add-btn">Add</button>
+      </form>
+      <div class="todos">
+        <div class="todo-list" *ngIf="!loading">
+          <div class="todo-item" *ngFor="let todo of todos">
+            <div class="todo-item-data">
+              <input type="checkbox" (change)="toggleTaskComplete(todo)" [checked]="todo.is_completed">
+              <h4 [ngClass]="{'completed': todo.is_completed}">{{todo.todo_task}}</h4>
+            </div>
+            <button class="delete-btn" (click)="deleteTodo(todo.id || -1)">
+              Delete
+            </button>
+          </div>
+        </div>
+        <div *ngIf="!loading && todos.length === 0">
+          <h4>Hurray! Nothing to do.</h4>
+        </div>
+        <h2 *ngIf="loading">Loading...</h2>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
